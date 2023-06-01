@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge befor the Interview</title>
+
+    <!-- Bootstrap Framework + JS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- The main page, let's start with a bar -->
+    <div class="container-fluid">
+        <div class="row bg-dark text-light">
+        <h1 class="col">Guess the number</h1>
+        <button type="button" class="btn btn-outline-info col-2 m-2 me-2" data-bs-toggle="modal" data-bs-target="#instructions">
+            Instructions
+        </button>
+    </div>
+
+    <!-- The imput row -->
+    <div class="row m-2">
+        <form action="">
+            <label for="newPlay" class="form-label">Enter your guess:</label>
+            <input type="number" id="newPlay" name="newPlay" class="form-control" min="1" max="10">
+            <div id="passwordHelpBlock" class="form-text">
+                Enter a number from 1 to 10
+            </div>
+            <button type="submit" id="submitPlay" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    
+    <!-- Print the results -->
+    <div class="row text/text-center">
+          <p id="numberOfChances"></p>
+          <p id="result" class="fw-bold fs-4"></p>
+    </div>
+
+    <!-- The script is kept in the same page to avoid multiple files -->
+    <script>
+        function playGame() {
+        //pick a 1-10 number to guess
+        const randNum = play[Math.floor(Math.random() * 10 + 1)];
+        //set counter to 3
+        const chances = 3;
+
+        document.getElementById("submitguess").onclick = function(randNum){
+            //build the logic
+            if (play === randNum) {
+                message = "Wow! that's the number I was thinking of, congratulations!";
+                chances = 0;
+            } else if (play > randNum) {
+                message = "Good try, but your answer is higher than the number I thought.";
+                chances--;
+            } else if (play < randNum) {
+                message = "One chance less, the number you picked is lower than the one I got.";
+                chances--;
+            }
+
+            if (chances < 0) {
+                document.getElementById("numberOfChances").innerHTML = "";
+                document.getElementById("result").innerHTML = "Sorry, but you have no guesses left.";
+                return;
+            } else {
+                document.getElementById("numberOfChances").innerHTML = "You have " + chances + "guesses left.";
+                document.getElementById("result").innerHTML = "Your choosed <b>" + play + "</b>. " + message;
+
+            }
+        }
+                    
+    }
+        
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paper Rock Scissors</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+    <!--
+        The Winning Rules are as follows:
+            Rock smashes Scissors.
+            Paper covers Rock.
+            Scissors cut Paper.
+
+          
+
+        Key concepts for this challenge exercise: 
+            Variables and/or constants. 
+            Control flow (if statements). 
+            Event listeners. 
+            Functions. 
+            The DOM: document.getElementById. 
+    -->
+</head>
+<body>
+  <!--The main game page-->
+  <div class="container-fluid">
+    <div class="row bg-dark text-light">
+      <h1 class="col">Rock-Paper-Scissors Game</h1>
+      <button type="button" class="btn btn-outline-info col-2 m-2 me-2" data-bs-toggle="modal" data-bs-target="#instructions">
+        Instructions
+      </button>
+    </div>
+
+    <div class="row m-5">
+      <div class="btn-group" role="group" aria-label="Play selector">
+        <button type="button" id="Rock" class="btn btn-outline-primary">Rock</button>
+        <button type="button" id="Paper" class="btn btn-outline-primary">Paper</button>
+        <button type="button" id="Scissors" class="btn btn-outline-primary">Scissors</button>
+      </div>
+    </div>
+          
+    <div class="row">
+      <div class="col-4 mx-auto">
+        <p id="selectedPlay"></p>
+        <p id="randomPlay"></p>
+        <p id="result" class="fw-bold fs-4"></p>
+      </div>
+    </div>
+  </div>
+
+  <!--Modal to show instructions-->
+  <div class="modal fade" id="instructions" tabindex="-1" aria-labelledby="instructionsLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Instructions</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Select your play clicking the buttons. Then the computer will show you its play.</p>
+          <p>Winning rules:</p>
+          <ul>
+            <li>Rock smashes Scissors</li>
+            <li>Paper covers Rock</li>
+            <li>Scissors cut Paper</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--The script for the game is included here to minimize to one file-->
+  <script>
+    //get the buttons
+    const btnRock = document.getElementById("Rock");
+    const btnPaper = document.getElementById("Paper");
+    const btnSciss = document.getElementById("Scissors");
+
+    //define variables for use
+    const play = ["Rock", "Paper", "Scissors"];
+    let count = 0;
+
+    //add event listeners so a functions is called when the button is clicked
+    btnRock.addEventListener("click", function() {
+      rpsGame("Rock")
+    });
+    btnPaper.addEventListener("click", function() {
+      rpsGame("Paper")
+    });
+    btnSciss.addEventListener("click", function() {
+      rpsGame("Scissors")
+    });
+
+    function rpsGame(myPlay) {
+      //Check the counter for winning strike 
+      if (count > 2) {
+        document.getElementById("selectedPlay").innerHTML = "";
+        document.getElementById("randomPlay").innerHTML = "";
+        document.getElementById("result").innerHTML = "I don't like this game :(";
+        
+      } else {
+        //if the strike is less than 3 pay the game
+        //get machine play
+        const randPlay = play[Math.floor(Math.random() * play.length)];
+
+        //compare results, get the result message
+        if (myPlay === randPlay) {
+          count = 0;
+          message = "Oh! It's a tie";
+        } else if (myPlay === "Rock" && randPlay == "Scissors") {
+          count++;
+          message = "Congratulations, you win!";
+        } else if (myPlay === "Paper" && randPlay == "Rock") {
+          count++;
+          message = "Congratulations, you win!";
+        } else if (myPlay === "Scissors" && randPlay == "Paper") {
+          count++;
+          message = "Congratulations, you win!";
+        } else {
+          count = 0;
+          message = "Congratulations to me!, I win! :)";
+        }
+        
+        //print results on screen
+        document.getElementById("selectedPlay").innerHTML = "Your choosed <b>" + myPlay + "</b>";
+        document.getElementById("randomPlay").innerHTML = "I choosed <b>" + randPlay + "</b>";
+        document.getElementById("result").innerHTML = message;
+      }
+        
+    }
+      
+  </script>
+</body>
+</html>
